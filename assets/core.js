@@ -8,28 +8,40 @@
 let client = ZAFClient.init();
 client.invoke('resize', { width: '100%', height: '300px' });
 
-// Find Requester email
-
 client.get('ticket').then((data) => {
 
-    let requesterEmail = data['ticket'].requester.email;
+    let ticketData = data['ticket'];
+    let requesterEmail = ticketData.requester.email;
 
     let ticketOptions = {
         url: `/api/v2/search.json?query=status<=solved requester:${requesterEmail}`,
         type: 'GET'
       };
 
-    client.request(ticketOptions).then(({results}) => {
-        let ratings = calculatePerc(results);
+    client.request(ticketOptions)
+        .then(async ({results}) => {
 
-        let tickets = Object.values(results);
-        let resultsData = {
-            tickets: tickets,
-            ratings: ratings
-        }
+            let ratings = calculatePerc(results);
+            let tickets = Object.values(results);
 
-        showInfo(resultsData)
-    });
+            for(let i=0; i<tickets.length; i++){
+                let groupOptions = {
+                    url: `/api/v2/groups/${tickets[i].group_id}.json`,
+                    type: 'GET'
+                }
+
+                let {group} = await client.request(groupOptions);
+                
+                tickets[i].group_name = group.name;
+            }
+
+            const resultsData = {
+                tickets: tickets,
+                ratings: ratings
+            }
+
+            showInfo(resultsData)
+        })
 
 });
 
