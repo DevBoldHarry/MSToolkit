@@ -1,0 +1,106 @@
+/* Layout */
+
+.each-ticket-table {
+    display: block;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+  
+  a.ticket-info, a.ticket-info:hover {
+    color: unset;
+    text-decoration: none;
+  }
+
+  .each-ticket-table:hover {
+    background:#8080801a;
+  }
+
+  .app-section {
+    margin-bottom: 15px;
+  }
+
+  .app-section h3 {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .ticket-info tr {
+    text-align: center;
+  }
+
+  /* Ticket Status */
+
+  .ticket-status {
+    padding: 2px 5px 3px 5px;
+    font-size: 9px;
+    text-transform: uppercase;
+    margin-right: 2px;
+    text-shadow: none;
+    line-height: 0;
+    display: inline;
+    position: relative;
+    top: -1px;
+    letter-spacing: 0;
+    font-weight: 600;
+  }
+
+  .ticket-status.open {
+    background: #E34F32;
+    color: white;
+  }
+
+  .ticket-status.new {
+    background: #FFB648;
+    color: #703B15;
+  }
+
+  .ticket-status.pending {
+    background: #3091EC;
+    color: white;
+  }
+
+  .ticket-status.hold {
+    background: #2F3941;
+    color: white;
+  }
+
+  .ticket-status.solved {
+    background: #87929D;
+    color: white;
+  }
+
+  /* Satisfaction */
+
+  .satisfaction-rating-container {
+    display:flex;
+    background-color:#80808057;
+  }
+
+  .satisfaction-rating-container .satisfaction-rating {
+    height: 25px;
+  }
+
+  .satisfaction-rating.good {
+    background-color: #77A500;
+  }
+
+  .satisfaction-rating.bad {
+    background-color: #bd322c;
+  }
+
+  /* Satisfaction Tooltip */
+
+  .satisfaction-rating .rating-tooltip {
+    visibility: hidden;
+    color: #fff;
+    text-align: center;
+    line-height: 25px;
+  }
+  
+  .satisfaction-rating:hover .rating-tooltip {
+    visibility: visible;
+  }
+
+  .rating {
+      text-transform: capitalize;
+  }
