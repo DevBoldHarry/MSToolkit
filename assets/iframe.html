@@ -17,15 +17,10 @@
 
     <div class="app-section satisfcation-rating">
 
-      <h3>Store Satisfcation:</h3>
+      <h3>Shop Satisfcation: {{#if_greater ratings.total_ticket_count 0 }} {{ ratings.rating_good_percentage }}% {{else}} No tickets rated {{/if_greater}}</h3>
 
       <div class="satisfaction-rating-container">
-        <div class="satisfaction-rating good" style=width:{{ ratings.rating_good_percentage }}%;>
-          <p class="rating-tooltip"> {{ ratings.rating_good_count }} / {{ ratings.total_ticket_count }} ({{ ratings.rating_good_percentage }}%)</p>
-        </div>
-        <div class="satisfaction-rating bad" style=width:{{ ratings.rating_bad_percentage }}%;>
-          <p class="rating-tooltip"> {{ ratings.rating_bad_count }} / {{ ratings.total_ticket_count }} ({{ ratings.rating_bad_percentage }}%)</p>
-        </div>
+        <div class="satisfaction-rating good" style=width:{{ ratings.rating_good_percentage }}%;></div>
       </div>
 
     </div>
@@ -35,13 +30,13 @@
       {{#each tickets}}
       <div class="each-ticket-table">
         <a class="ticket-info" href="https://boldapps.zendesk.com/agent/tickets/{{id}}" rel="noopener noreferrer" target="_blank">
-          <strong>{{subject}} - {{ group_name }}</strong>
+          <strong class="ticket-title">{{subject}} - {{ group_name }}</strong>
           <table style="width:100%">
             <tr>
               <th>Last Updated</th><th>Status</th><th>Satisfcation</th>
             </tr>
             <tr>
-              <td>{{updated_at}}</td>
+              <td class="ticket-updated-date">{{updated_at}}</td>
               <td class="ticket-status {{status}}">{{status}}</td>
               <td class="rating {{satisfaction_rating.score}}">{{satisfaction_rating.score}}</td>
             </tr>

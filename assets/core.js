@@ -54,8 +54,7 @@ function showInfo(requester_data) {
 
 function calculatePerc(tickets){
     let posNum = 0,
-    negNum = 0,
-    totalNum = tickets.length;
+    totalRated = 0;
 
     for(let i=0; i<tickets.length; i++){
 
@@ -64,22 +63,28 @@ function calculatePerc(tickets){
         switch(ticket.satisfaction_rating.score) {
         case "good":
             posNum++;
+            totalRated++;
             break;
         case "bad":
-            negNum++
+            totalRated++;
             break;
         }
     }
 
-    let posPerc = (posNum / totalNum) * 100,
-        negPerc = (negNum / totalNum) * 100,
+    let posPerc = (posNum/totalRated) * 100,
         result = {
             rating_good_percentage: posPerc,
-            rating_bad_percentage: negPerc,
             rating_good_count: posNum,
-            rating_bad_count: negNum,
-            total_ticket_count: totalNum
+            total_ticket_count: totalRated
         };
     
     return result;
 }
+
+Handlebars.registerHelper('if_greater', function(a, b, opts) {
+    if (a > b) {
+        return opts.fn(this);
+    } else {
+        return opts.inverse(this);
+    }
+});

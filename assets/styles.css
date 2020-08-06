@@ -1,6 +1,6 @@
 /* Layout */
 
-.each-ticket-table {
+  .each-ticket-table {
     display: block;
     padding: 5px;
     margin-bottom: 10px;
@@ -22,6 +22,8 @@
   .app-section h3 {
     margin-bottom: 5px;
     font-weight: bold;
+    border-bottom: solid thin #8080801a;
+    padding-bottom: 5px;
   }
 
   .ticket-info tr {
@@ -91,14 +93,9 @@
   /* Satisfaction Tooltip */
 
   .satisfaction-rating .rating-tooltip {
-    visibility: hidden;
     color: #fff;
     text-align: center;
     line-height: 25px;
-  }
-  
-  .satisfaction-rating:hover .rating-tooltip {
-    visibility: visible;
   }
 
   .rating {
@@ -114,7 +111,7 @@
     width: 50px;
     height: 50px;
   }
-  
+
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
