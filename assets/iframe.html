@@ -1,64 +1,59 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <!--   See Using Zendesk Garden:
-    https://developer.zendesk.com/apps/docs/developer-guide/setup#using-zendesk-garden
-    https://garden.zendesk.com/css-components/bedrock/
-    https://garden.zendesk.com/css-components/utilities/typography/
+  <head>
+    <meta charset="utf-8">
+    <!--   See Using Zendesk Garden:
+      https://developer.zendesk.com/apps/docs/developer-guide/setup#using-zendesk-garden
+      https://garden.zendesk.com/css-components/bedrock/
+      https://garden.zendesk.com/css-components/utilities/typography/
 
-    Query Zendesk for any New/Open/Pending/On-Hold tickets based on the shop URL. Display results with ticket group, subject, status and date  of last public comment.
-    Query Zendesk for any ticket with the shop URL and display the ticket satisfcation of that shop (total tickets rated / tickets rated good)
+      Query Zendesk for any New/Open/Pending/On-Hold tickets based on the shop URL. Display results with ticket group, subject, status and date  of last public comment.
+      Query Zendesk for any ticket with the shop URL and display the ticket satisfcation of that shop (total tickets rated / tickets rated good)
 
-   -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@zendeskgarden/css-bedrock@7.0.21,npm/@zendeskgarden/css-utilities@4.3.0">
+    -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@zendeskgarden/css-bedrock@7.0.21,npm/@zendeskgarden/css-utilities@4.3.0">
 
-  <script id="requester-template" type="text/x-handlebars-template">
+    <script id="requester-template" type="text/x-handlebars-template">
 
-    <div class="app-section satisfcation-rating">
-
-      <h3>Shop Satisfcation: {{#if_greater ratings.total_ticket_count 0 }} {{ ratings.rating_good_percentage }}% {{else}} No tickets rated {{/if_greater}}</h3>
-
-      {{#if_greater ratings.total_ticket_count 0 }}
-      <div class="satisfaction-rating-container">
-        <div class="satisfaction-rating {{ ratings.rating_class }}" style=width:{{ ratings.rating_good_percentage }}%;></div>
+      <div class="app-section satisfcation-rating">
+        <h3>Shop Satisfcation: {{#if_greater ratings.total_ticket_count 0 }} {{ ratings.rating_good_percentage }}% {{else}} No tickets rated {{/if_greater}}</h3>
+        {{#if_greater ratings.total_ticket_count 0 }}
+        <div class="satisfaction-rating-container">
+          <div class="satisfaction-rating {{ ratings.rating_class }}" style=width:{{ ratings.rating_good_percentage }}%;></div>
+        </div>
+        {{/if_greater}}
       </div>
-      {{/if_greater}}
 
-    </div>
-
-    <div class="app-section ticket-list">
-      <h3>Tickets:</h3>
-      {{#each tickets}}
-      <div class="each-ticket-table">
-        <a class="ticket-info" href="https://boldapps.zendesk.com/agent/tickets/{{id}}" rel="noopener noreferrer" target="_blank">
-          <strong class="ticket-title">{{subject}} - {{ group_name }}</strong>
-          <table style="width:100%">
-            <tr>
-              <th>Last Updated</th><th>Status</th><th>Satisfcation</th>
-            </tr>
-            <tr>
-              <td class="ticket-updated-date">{{updated_at}}</td>
-              <td class="ticket-status {{status}}">{{status}}</td>
-              <td class="rating {{satisfaction_rating.score}}">{{satisfaction_rating.score}}</td>
-            </tr>
-          </table>
-        </a>
+      <div class="app-section ticket-list">
+        <h3>Tickets:</h3>
+        {{#each tickets}}
+        <div class="each-ticket-table">
+          <a class="ticket-info" href="https://boldapps.zendesk.com/agent/tickets/{{id}}" rel="noopener noreferrer" target="_blank">
+            <strong class="ticket-title">{{subject}} - {{ group_name }}</strong>
+            <table style="width:100%">
+              <tr>
+                <th>Last Updated</th><th>Status</th><th>Satisfcation</th>
+              </tr>
+              <tr>
+                <td class="ticket-updated-date">{{updated_at}}</td>
+                <td class="ticket-status {{status}}">{{status}}</td>
+                <td class="rating {{satisfaction_rating.score}}">{{satisfaction_rating.score}}</td>
+              </tr>
+            </table>
+          </a>
+        </div>
+        {{/each}}
       </div>
-      {{/each}}
-    </div>
-  </script>
+    </script>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/handlebars@4.3.3/dist/handlebars.min.js"></script>
-  <script src="https://assets.zendesk.com/apps/sdk/2.0/zaf_sdk.js"></script>
-  <script src="./core.js"></script>
-  <link rel="stylesheet" type="text/css" href="./styles.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@4.3.3/dist/handlebars.min.js"></script>
+    <script src="https://assets.zendesk.com/apps/sdk/2.0/zaf_sdk.js"></script>
+    <script src="./core.js"></script>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
 
-</head>
-<body>
-
-  <div id="content"><div class="loader"></div></div>
-
-</body>
+  </head>
+  <body>
+    <div id="content"><div class="loader"></div></div>
+  </body>
 </html>

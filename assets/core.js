@@ -8,7 +8,8 @@
 let client = ZAFClient.init();
 client.invoke('resize', { width: '100%', height: '300px' });
 
-client.get('ticket').then((data) => {
+// Gather ticket data
+client.get('ticket').then(async (data) => {
 
     let ticketData = data['ticket'];
     let requesterEmail = ticketData.requester.email;
@@ -16,34 +17,32 @@ client.get('ticket').then((data) => {
     let ticketOptions = {
         url: `/api/v2/search.json?query=status<=solved requester:${requesterEmail}`,
         type: 'GET'
-      };
+    };
 
-    client.request(ticketOptions)
-        .then(async ({results}) => {
+    // Request ticket search
+    let {results} = await client.request(ticketOptions);
 
-            let ratings = calculatePerc(results);
-            let tickets = Object.values(results);
+    // Calculate satisfaction percentage from results
+    let ratings = calculatePerc(results);
 
-            for(let i=0; i<tickets.length; i++){
-                let groupOptions = {
-                    url: `/api/v2/groups/${tickets[i].group_id}.json`,
-                    type: 'GET'
-                }
+    // Find Group Name for each ticket in list
+    let tickets = Object.values(results);
+    for(let i=0; i<tickets.length; i++){
+        let groupOptions = {
+            url: `/api/v2/groups/${tickets[i].group_id}.json`,
+            type: 'GET'
+        }
+        let {group} = await client.request(groupOptions);
+        tickets[i].group_name = group.name;
+    }
 
-                let {group} = await client.request(groupOptions);
-                
-                tickets[i].group_name = group.name;
-            }
+    const resultsData = {
+        tickets: tickets,
+        ratings: ratings
+    }
 
-            const resultsData = {
-                tickets: tickets,
-                ratings: ratings
-            }
-
-            showInfo(resultsData)
-        })
-
-});
+    showInfo(resultsData)
+})
 
 function showInfo(requester_data) {
     let source = $("#requester-template").html();
@@ -52,15 +51,15 @@ function showInfo(requester_data) {
     $("#content").html(html);
   }
 
-function calculatePerc(tickets){
+function calculatePerc(tickets) {
     let posNum = 0,
     totalRated = 0;
 
-    for(let i=0; i<tickets.length; i++){
+    for (let i=0; i<tickets.length; i++) {
 
         let ticket = tickets[i];
 
-        switch(ticket.satisfaction_rating.score) {
+        switch (ticket.satisfaction_rating.score) {
         case "good":
             posNum++;
             totalRated++;
@@ -71,6 +70,7 @@ function calculatePerc(tickets){
         }
     }
 
+    // Calculate satisfaction percentage
     let posPerc = (posNum/totalRated) * 100,
         rating = posPerc > 85 ? "good" : "bad",
         result = {
@@ -79,10 +79,10 @@ function calculatePerc(tickets){
             total_ticket_count: totalRated,
             rating_class: rating
         };
-    
     return result;
 }
 
+// Register Handlebars if greater than operator (if a > b)
 Handlebars.registerHelper('if_greater', function(a, b, opts) {
     if (a > b) {
         return opts.fn(this);
