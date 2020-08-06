@@ -27,7 +27,7 @@
       <div class="app-section ticket-list">
         <h3>Tickets:</h3>
         {{#each tickets}}
-        <div class="each-ticket-table">
+        <div class="each-ticket-table {{#if currentTicket}}current-ticket{{/if}}">
           <a class="ticket-info" href="https://boldapps.zendesk.com/agent/tickets/{{id}}" rel="noopener noreferrer" target="_blank">
             <strong class="ticket-title">{{subject}} - {{ group_name }}</strong>
             <table style="width:100%">

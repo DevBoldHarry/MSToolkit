@@ -11,8 +11,9 @@ client.invoke('resize', { width: '100%', height: '300px' });
 // Gather ticket data
 client.get('ticket').then(async (data) => {
 
-    let ticketData = data['ticket'];
-    let requesterEmail = ticketData.requester.email;
+    let ticketData = data['ticket'],
+        requesterEmail = ticketData.requester.email,
+        ticketNumber = ticketData.id;
 
     let ticketOptions = {
         url: `/api/v2/search.json?query=status<=solved requester:${requesterEmail}`,
@@ -34,6 +35,10 @@ client.get('ticket').then(async (data) => {
         }
         let {group} = await client.request(groupOptions);
         tickets[i].group_name = group.name;
+
+        // Add property if IDs match
+        if(ticketNumber === tickets[i].id)
+            tickets[i].currentTicket = true;
     }
 
     const resultsData = {
