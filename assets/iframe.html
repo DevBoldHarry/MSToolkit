@@ -19,9 +19,11 @@
 
       <h3>Shop Satisfcation: {{#if_greater ratings.total_ticket_count 0 }} {{ ratings.rating_good_percentage }}% {{else}} No tickets rated {{/if_greater}}</h3>
 
+      {{#if_greater ratings.total_ticket_count 0 }}
       <div class="satisfaction-rating-container">
-        <div class="satisfaction-rating good" style=width:{{ ratings.rating_good_percentage }}%;></div>
+        <div class="satisfaction-rating {{ ratings.rating_class }}" style=width:{{ ratings.rating_good_percentage }}%;></div>
       </div>
+      {{/if_greater}}
 
     </div>
 

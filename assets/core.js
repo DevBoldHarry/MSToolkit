@@ -72,10 +72,12 @@ function calculatePerc(tickets){
     }
 
     let posPerc = (posNum/totalRated) * 100,
+        rating = posPerc > 85 ? "good" : "bad",
         result = {
             rating_good_percentage: posPerc,
             rating_good_count: posNum,
-            total_ticket_count: totalRated
+            total_ticket_count: totalRated,
+            rating_class: rating
         };
     
     return result;

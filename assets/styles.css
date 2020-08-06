@@ -80,6 +80,7 @@
 
   .satisfaction-rating-container .satisfaction-rating {
     height: 25px;
+    min-width: 1%;
   }
 
   .satisfaction-rating.good {
