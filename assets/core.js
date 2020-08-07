@@ -9,14 +9,15 @@ let client = ZAFClient.init();
 client.invoke('resize', { width: '100%', height: '300px' });
 
 // Gather ticket data
-client.get('ticket').then(async (data) => {
 
-    let ticketData = data['ticket'],
-        requesterEmail = ticketData.requester.email,
+client.get(['ticket', 'ticket.customField:custom_field_23800156']).then(async (data) => {
+
+    let url = data['ticket.customField:custom_field_23800156'],
+        ticketData = data['ticket'],
         ticketNumber = ticketData.id;
 
     let ticketOptions = {
-        url: `/api/v2/search.json?query=status<=solved requester:${requesterEmail}`,
+        url: `/api/v2/search.json?query=status<=solved fieldvalue:${url}`,
         type: 'GET'
     };
 

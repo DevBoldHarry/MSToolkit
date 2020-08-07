@@ -26,6 +26,7 @@
 
       <div class="app-section ticket-list">
         <h3>Tickets:</h3>
+        {{#if tickets}}
         {{#each tickets}}
         <div class="each-ticket-table {{#if currentTicket}}current-ticket{{/if}}">
           <a class="ticket-info" href="https://boldapps.zendesk.com/agent/tickets/{{id}}" rel="noopener noreferrer" target="_blank">
@@ -43,6 +44,9 @@
           </a>
         </div>
         {{/each}}
+        {{else}}
+        <p> No tickets found (Please check myshopify URL) </p>
+        {{/if}}
       </div>
     </script>
 
