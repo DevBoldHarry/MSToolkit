@@ -16,14 +16,16 @@
   }
 
   .app-section {
-    margin-bottom: 15px;
+    margin: 5px 0px;
   }
 
-  .app-section h3 {
+  .app-section-header {
     margin-bottom: 5px;
     font-weight: bold;
     border-bottom: solid thin #8080801a;
-    padding-bottom: 5px;
+    padding: 5px 0px;
+    width: 100%;
+    display: block;
   }
 
   .ticket-info tr {
@@ -33,6 +35,12 @@
   .each-ticket-table.current-ticket {
     pointer-events: none;
   }
+
+  .collapse-button, .collapse-button:focus, .collapse-button:hover {
+    text-decoration: none;
+    font-weight: bold;
+    color: #2f3941;
+}
 
   /* Ticket Status */
 
@@ -77,6 +85,10 @@
 
   /* Satisfaction */
 
+  .app-section.satisfcation-rating {
+    padding: 10px;
+  }
+
   .satisfaction-rating-container {
     display:flex;
     background-color:#80808057;
@@ -93,6 +105,10 @@
 
   .satisfaction-rating.bad {
     background-color: #bd322c;
+  }
+
+  .satisfcation-rating.high-priority {
+    background: aquamarine;
   }
 
   /* Satisfaction Tooltip */
@@ -120,4 +136,10 @@
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+  }
+
+  /* Collapse */
+  .app-section[data-collapsed="true"] {
+    height: 10px;
+    visibility:hidden;
   }
